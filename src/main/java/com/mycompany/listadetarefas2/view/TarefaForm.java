@@ -108,11 +108,6 @@ public class TarefaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-S        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoSalvarActionPerformed
-
- private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {
-        // Recupera os dados do formulário
         String titulo = campoTitulo.getText();
         String descricao = campoDescricao.getText();
         String data = campoData.getText();
@@ -134,7 +129,9 @@ S        // TODO add your handling code here:
 
         // Fecha o formulário após salvar
         this.dispose();
-    }
+    
+    }//GEN-LAST:event_botaoSalvarActionPerformed
+        
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoSalvar;
