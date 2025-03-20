@@ -1,0 +1,9 @@
+com\mycompany\listadetarefas\model\Tarefa.class
+com\mycompany\listadetarefas\ListaDeTarefas2.class
+com\mycompany\listadetarefas\controller\TarefaController.class
+com\mycompany\listadetarefas\model\ConexaoSQLite.class
+com\mycompany\listadetarefas\model\CriarTabelas.class
+com\mycompany\listadetarefas\controller\UsuarioController.class
+com\mycompany\listadetarefas\model\TarefaDAO.class
+com\mycompany\listadetarefas\model\UsuarioDAO.class
+com\mycompany\listadetarefas\model\Usuario.class
