@@ -14,7 +14,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexaoSQLite {
-    public Connection conectar() {
+    
+    public static Connection conectar() {
         // Declara uma variável para armazenar a conexão
         Connection connection = null;
         // Define o caminho do banco de dados SQLite

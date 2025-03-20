@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.listadetarefas2;
+package com.mycompany.listadetarefas;
 
 import com.mycompany.listadetarefas.model.ConexaoSQLite;
 import com.mycompany.listadetarefas.model.CriarTabelas;

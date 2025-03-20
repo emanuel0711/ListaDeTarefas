@@ -31,7 +31,7 @@ public class CriarTabelas {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "titulo TEXT NOT NULL," +
                 " descricao TEXT," +
-                " data_vencimento DATE," +
+                " data_vencimento TEXT," +
                 " status TEXT CHECK(status IN ('pendente', 'concluido')) DEFAULT 'pendente'," +
                 " usuario_id INTEGER," +
                 " FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE);";
