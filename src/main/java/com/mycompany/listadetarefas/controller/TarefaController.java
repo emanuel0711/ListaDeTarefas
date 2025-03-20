@@ -13,7 +13,6 @@ import com.mycompany.listadetarefas.model.TarefaDAO;
  */
 public class TarefaController {
         private TarefaDAO tarefaDAO;
-    int idTarefa = 0;
 
     public TarefaController() {
         this.tarefaDAO = new TarefaDAO();
