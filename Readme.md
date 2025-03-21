@@ -16,24 +16,6 @@ Este é um projeto de Lista de Tarefas (To-Do List) desenvolvido para auxiliar n
 - **Gerenciamento de Estado:** Banco de Dados
 - **Estilização:** Java swing
 
-## Como Executar o Projeto
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/emanuel0711/ListaDeTarefas.git
-   ```
-2. Acesse o diretório do projeto:
-   ```bash
-   cd ListaDeTarefas
-   ```
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
-4. Execute o projeto:
-   ```bash
-   npm start
-   ```
-
 ## Contribuição
 1. Faça um fork do repositório
 2. Crie um branch para sua funcionalidade:
