@@ -7,6 +7,7 @@ package com.mycompany.listadetarefas.controller;
 import com.mycompany.listadetarefas.model.ConexaoDatabase;
 import com.mycompany.listadetarefas.model.Tarefa;
 import com.mycompany.listadetarefas.model.TarefaDAO;
+import java.util.List;
 
 /**
  *
@@ -28,11 +29,17 @@ public class TarefaController {
         Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento);
         tarefaDAO.criarTarefa(tarefa, usuarioId);
     }
-
-    public void atualizarStatusTarefa(int id, String novoStatus) throws Exception {
-        if (!novoStatus.equals("pendente") && !novoStatus.equals("concluido")) {
-            throw new Exception("Status inválido. Use 'pendente' ou 'concluido'");
-        }
-        tarefaDAO.atualizarStatusTarefa(novoStatus, id);
+  
+    public void atualizarTarefa(String titulo, String descricao, String dataVencimento, int id, boolean status) throws Exception {
+        String novoStatus = status ? "concluido" : "pendente";
+        tarefaDAO.atualizarTarefa(new Tarefa(id, titulo, descricao, novoStatus, dataVencimento));
+    }
+    
+    public List<Tarefa> listarTarefasPorUsuario(int usuarioId) throws Exception {
+        return tarefaDAO.listarTarefasDoUsuario(usuarioId);
+    }
+    
+    public void removerTarefa(int id) throws Exception {
+        tarefaDAO.excluirTarefa(id);
     }
 }
