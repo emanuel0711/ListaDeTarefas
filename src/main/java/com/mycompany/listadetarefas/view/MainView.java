@@ -208,6 +208,8 @@ public class MainView extends javax.swing.JFrame {
             } catch (Exception e) {
                 showErrorMessage(e.getMessage());
             }
+	} else {
+		showErrorMessage("Selecione uma tarefa!");
 	}
         
         attTableLivros();
