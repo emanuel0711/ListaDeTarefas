@@ -4,7 +4,9 @@
 
 package com.mycompany.listadetarefas;
 
+import com.mycompany.listadetarefas.model.ConexaoDatabase;
 import com.mycompany.listadetarefas.model.CriarTabelas;
+import com.mycompany.listadetarefas.view.LoginView;
 import java.sql.Connection;
 
 /**
@@ -14,10 +16,11 @@ import java.sql.Connection;
 public class App {
 
     public static void main(String[] args) {
-        ConexaoSQLite connSQLite = new ConexaoSQLite();
-        Connection conexao = connSQLite.conectar();
+        Connection conexao = ConexaoDatabase.getConnection();
         
         CriarTabelas.criarUsuarios(conexao);
         CriarTabelas.criarTarefas(conexao);
+        
+        new LoginView().setVisible(true);
     }
 }
