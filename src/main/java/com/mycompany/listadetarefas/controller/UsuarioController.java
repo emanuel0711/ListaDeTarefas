@@ -5,27 +5,27 @@
 package com.mycompany.listadetarefas.controller;
 
 
+import com.mycompany.listadetarefas.model.ConexaoDatabase;
 import com.mycompany.listadetarefas.model.Usuario;
 import com.mycompany.listadetarefas.model.UsuarioDAO;
 
-/**
- *
- * @author emanu
- */
+
 public class UsuarioController {
-        private UsuarioDAO usuarioDAO;
+    private final UsuarioDAO usuarioDAO;
 
     public UsuarioController() {
-        this.usuarioDAO = new UsuarioDAO();
-    
+        this.usuarioDAO = new UsuarioDAO(ConexaoDatabase.getConnection());
     }
-    
-       public String adicionarUsuario(String nome, String email, String senha) {
-        try {
-            usuarioDAO.adicionarUsuario(new Usuario(nome, email, senha));
-            return "Usuario adicionado com sucesso";
-        } catch (NumberFormatException e) {
-            return "Erro" + e.getMessage();
+
+    public void criarUsuario(String nome, String email, String senha) throws Exception {
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            throw new IllegalArgumentException("Nome, email e senha não podem estar vazios");
         }
+        Usuario usuario = new Usuario(nome, email, senha);
+        usuarioDAO.criarUsuario(usuario);
+    }
+
+    public Usuario obterUsuarioPeloID(int id) throws Exception {
+        return usuarioDAO.obterUsuarioPeloID(id);
     }
 }

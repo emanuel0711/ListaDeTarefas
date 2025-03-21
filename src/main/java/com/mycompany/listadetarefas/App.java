@@ -4,7 +4,6 @@
 
 package com.mycompany.listadetarefas;
 
-import com.mycompany.listadetarefas.model.ConexaoSQLite;
 import com.mycompany.listadetarefas.model.CriarTabelas;
 import java.sql.Connection;
 
@@ -12,7 +11,7 @@ import java.sql.Connection;
  *
  * @author emanu
  */
-public class ListaDeTarefas2 {
+public class App {
 
     public static void main(String[] args) {
         ConexaoSQLite connSQLite = new ConexaoSQLite();

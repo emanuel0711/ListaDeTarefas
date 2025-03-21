@@ -1,4 +1,4 @@
-package com.mycompany.listadetarefas2.view;
+package com.mycompany.listadetarefas.view;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

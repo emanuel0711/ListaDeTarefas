@@ -4,6 +4,7 @@
  */
 package com.mycompany.listadetarefas.controller;
 
+import com.mycompany.listadetarefas.model.ConexaoDatabase;
 import com.mycompany.listadetarefas.model.Tarefa;
 import com.mycompany.listadetarefas.model.TarefaDAO;
 
@@ -12,19 +13,19 @@ import com.mycompany.listadetarefas.model.TarefaDAO;
  * @author emanu
  */
 public class TarefaController {
-        private TarefaDAO tarefaDAO;
+
+
+    private final TarefaDAO tarefaDAO;
 
     public TarefaController() {
-        this.tarefaDAO = new TarefaDAO();
-    
+        this.tarefaDAO = new TarefaDAO(ConexaoDatabase.getConnection());
     }
-    
-       public String adicionarTarefa(String titulo, String descricao, String dataVencimento) {
-        try {
-            tarefaDAO.adicionarTarefa(new Tarefa(titulo, descricao, dataVencimento));
-            return "Tarefa adicionada com sucesso";
-        } catch (NumberFormatException e) {
-            return "Erro" + e.getMessage();
+
+    public void criarTarefa(String titulo, String descricao, String dataVencimento, int usuarioId) throws Exception {
+        if (titulo.isEmpty()) {
+            throw new Exception("O título da tarefa não pode estar vazio");
         }
+        Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento);
+        tarefaDAO.criarTarefa(tarefa, usuarioId);
     }
 }

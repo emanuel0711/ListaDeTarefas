@@ -15,7 +15,8 @@ public class CriarTabelas {
     public static void criarUsuarios(Connection connection) {
         String sql = "CREATE TABLE IF NOT EXISTS usuarios(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nome TEXT UNIQUE NOT NULL,"+
+                "nome TEXT NOT NULL,"+
+                "email TEXT UNIQUE NOT NULL"+
                 "senha TEXT NOT NULL)";
 
         try (Statement stmt = connection.createStatement()) {
@@ -32,7 +33,7 @@ public class CriarTabelas {
                 "titulo TEXT NOT NULL," +
                 " descricao TEXT," +
                 " data_vencimento TEXT," +
-                " status TEXT CHECK(status IN ('pendente', 'concluido')) DEFAULT 'pendente'," +
+                " status DEFAULT 'pendente'," +
                 " usuario_id INTEGER," +
                 " FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE);";
 
