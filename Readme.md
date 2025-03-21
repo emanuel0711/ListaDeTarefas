@@ -11,10 +11,10 @@ Este é um projeto de Lista de Tarefas (To-Do List) desenvolvido para auxiliar n
 - **Interface intuitiva para melhor experiência do usuário**
 
 ## Tecnologias Utilizadas
-- **Linguagem:** JavaScript/TypeScript
-- **Framework:** React
-- **Gerenciamento de Estado:** useState/useEffect
-- **Estilização:** CSS/Styled Components
+- **Linguagem:** Java
+- **Framework:** JavaSwing
+- **Gerenciamento de Estado:** Banco de Dados
+- **Estilização:** Java swing
 
 ## Como Executar o Projeto
 1. Clone o repositório:
