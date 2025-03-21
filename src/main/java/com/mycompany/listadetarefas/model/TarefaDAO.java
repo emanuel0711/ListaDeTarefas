@@ -12,17 +12,16 @@ public class TarefaDAO {
     }
 
     public void criarTarefa(Tarefa tarefa, Integer usuarioId) throws Exception {
-        String sql = "INSERT INTO tarefas (titulo, descricao, data_vencimento, status, usuario_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tarefas (titulo, descricao, data_vencimento, usuario_id) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getDataVencimento());
-            stmt.setString(4, tarefa.getStatus());
             if (usuarioId != null) {
-                stmt.setInt(5, usuarioId);
+                stmt.setInt(4, usuarioId);
             } else {
-                stmt.setNull(5, Types.INTEGER);
+                stmt.setNull(4, Types.INTEGER);
             }
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -36,7 +35,7 @@ public class TarefaDAO {
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, usuario_id);
-            try (ResultSet rs = stmt.executeQuery(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Tarefa tarefa = new Tarefa(
                             rs.getInt("id"),
@@ -68,20 +67,6 @@ public class TarefaDAO {
             throw new Exception("ERRO AO ATUALIZAR TAREFA: " + e.getMessage());
         }
     }
-
-    public void atualizarStatusTarefa(String status, int id) throws Exception {
-        String sql = "UPDATE tarefas SET status = ? WHERE id = ?";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            stmt.setInt(2, id);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new Exception("ERRO AO ATUALIZAR TAREFA: " + e.getMessage());
-        }
-    }
-
-
 
     public void excluirTarefa(int id) throws Exception {
         String sql = "DELETE FROM tarefas WHERE id = ?";
