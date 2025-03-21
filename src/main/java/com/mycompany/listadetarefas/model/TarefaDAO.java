@@ -69,6 +69,20 @@ public class TarefaDAO {
         }
     }
 
+    public void atualizarStatusTarefa(String status, int id) throws Exception {
+        String sql = "UPDATE tarefas SET status = ? WHERE id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("ERRO AO ATUALIZAR TAREFA: " + e.getMessage());
+        }
+    }
+
+
+
     public void excluirTarefa(int id) throws Exception {
         String sql = "DELETE FROM tarefas WHERE id = ?";
 

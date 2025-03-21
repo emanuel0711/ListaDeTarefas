@@ -28,4 +28,11 @@ public class TarefaController {
         Tarefa tarefa = new Tarefa(titulo, descricao, dataVencimento);
         tarefaDAO.criarTarefa(tarefa, usuarioId);
     }
+
+    public void atualizarStatusTarefa(int id, String novoStatus) throws Exception {
+        if (!novoStatus.equals("pendente") && !novoStatus.equals("concluido")) {
+            throw new Exception("Status inválido. Use 'pendente' ou 'concluido'");
+        }
+        tarefaDAO.atualizarStatusTarefa(novoStatus, id);
+    }
 }
