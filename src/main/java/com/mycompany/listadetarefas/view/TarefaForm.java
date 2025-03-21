@@ -1,14 +1,33 @@
 package com.mycompany.listadetarefas.view;
 
+import com.mycompany.listadetarefas.controller.TarefaController;
+import com.mycompany.listadetarefas.model.Tarefa;
+import com.mycompany.listadetarefas.model.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
 public class TarefaForm extends javax.swing.JFrame {
-
-    public TarefaForm() {
+    private Tarefa tarefa;
+    private TarefaController tarefaController = new TarefaController();
+    private Usuario usuario;
+    
+    public TarefaForm(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         setLocationRelativeTo(null); // Centraliza a janela
         setBackground(new Color(240, 240, 240)); // Fundo cinza claro
+    }
+    
+    public TarefaForm(Usuario usuario, Tarefa tarefa) {
+        this.usuario = usuario;
+        initComponents();
+        setLocationRelativeTo(null); // Centraliza a janela
+        setBackground(new Color(240, 240, 240)); // Fundo cinza claro
+        
+        this.tarefa = tarefa;
+        campoData.setText(tarefa.getDataVencimento());
+        campoDescricao.setText(tarefa.getDescricao());
+        campoTitulo.setText(tarefa.getTitulo());
     }
    
 
@@ -22,16 +41,14 @@ public class TarefaForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         campoDescricao = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        campoData = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         checkStatus = new javax.swing.JCheckBox();
         botaoSalvar = new javax.swing.JButton();
+        campoData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Título:");
-
-        campoTitulo.setText("...");
 
         jLabel2.setText("Descrição:");
 
@@ -40,8 +57,6 @@ public class TarefaForm extends javax.swing.JFrame {
         jScrollPane1.setViewportView(campoDescricao);
 
         jLabel3.setText("Data de vencimento:");
-
-        campoData.setText("...");
 
         jLabel4.setText("Status:");
 
@@ -53,6 +68,12 @@ public class TarefaForm extends javax.swing.JFrame {
                 botaoSalvarActionPerformed(evt);
             }
         });
+
+        try {
+            campoData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,49 +114,54 @@ public class TarefaForm extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoSalvar)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkStatus))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
+    
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         String titulo = campoTitulo.getText();
         String descricao = campoDescricao.getText();
         String data = campoData.getText();
         boolean status = checkStatus.isSelected();
-
-        // Validação simples
-        if (titulo.isEmpty() || descricao.isEmpty() || data.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
-            return;
+   
+        try {
+            if (titulo.isEmpty() || descricao.isEmpty() || data.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos!");
+                return;
+            } 
+            if (tarefa == null) {
+                tarefaController.criarTarefa(titulo, descricao, data, usuario.getId());
+            } else {
+                tarefaController.atualizarTarefa(titulo, descricao, data, tarefa.getId(), status);
+            }    
+  
+            new MainView(usuario).setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            showErrorMessage(e.getMessage());
         }
-
-        // Exibe os dados (simulação)
-        String mensagem = "Tarefa salva com sucesso!\n"
-                + "Título: " + titulo + "\n"
-                + "Descrição: " + descricao + "\n"
-                + "Data: " + data + "\n"
-                + "Status: " + (status ? "Concluído" : "Pendente");
-        JOptionPane.showMessageDialog(this, mensagem);
-
-        // Fecha o formulário após salvar
-        this.dispose();
-    
+        
     }//GEN-LAST:event_botaoSalvarActionPerformed
         
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoSalvar;
-    private javax.swing.JTextField campoData;
+    private javax.swing.JFormattedTextField campoData;
     private javax.swing.JTextArea campoDescricao;
     private javax.swing.JTextField campoTitulo;
     private javax.swing.JCheckBox checkStatus;
