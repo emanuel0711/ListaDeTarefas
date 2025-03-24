@@ -18,11 +18,6 @@ public class TarefaDAO {
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getDataVencimento());
-            if (usuarioId != null) {
-                stmt.setInt(4, usuarioId);
-            } else {
-                stmt.setNull(4, Types.INTEGER);
-            }
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("ERRO AO CRIAR TAREFA: " + e.getMessage());
